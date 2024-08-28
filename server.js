@@ -104,7 +104,7 @@ async function processEmails() {
 }
 
 // Schedule the task to run every day at 10 AM
-cron.schedule('03 18 * * *', processEmails);
+cron.schedule('15 18 * * *', processEmails);
 
 const PORT = process.env.PORT || 6969;
 app.listen(PORT, () => {
