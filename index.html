@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cold Emailer</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -14,6 +15,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            position: relative;
         }
         .container {
             background-color: white;
@@ -54,6 +56,14 @@
         .btn:hover {
             background-color: #0056b3;
         }
+        .footer {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 14px;
+            color: black;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -84,11 +94,32 @@
                 <label for="recipientEmail">Recipient Email</label>
                 <input type="email" id="recipientEmail" name="recipientEmail" required>
             </div>
+
+            <!-- Cron Timing Field -->
+            <div class="form-group">
+                <label for="cronDatetime">Select Date and Time</label>
+                <input type="text" id="cronDatetime" name="cronDatetime" required>
+            </div>
+
             <button type="submit" class="btn">Send Email</button>
         </form>
     </div>
 
+    <div class="footer">
+        Made with ❤️ by Pratham
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
+        // Initialize flatpickr
+        flatpickr("#cronDatetime", {
+            enableTime: true,
+            dateFormat: "Y-m-d H:i",
+            altInput: true,
+            altFormat: "F j, Y h:i K",
+            time_24hr: true
+        });
+
         document.getElementById('emailForm').addEventListener('submit', async function (event) {
             event.preventDefault();
             const formData = {
@@ -97,7 +128,8 @@
                 jobPosition: document.getElementById('jobPosition').value,
                 specificArea: document.getElementById('specificArea').value,
                 yourName: document.getElementById('yourName').value,
-                recipientEmail: document.getElementById('recipientEmail').value
+                recipientEmail: document.getElementById('recipientEmail').value,
+                cronDatetime: document.getElementById('cronDatetime').value
             };
 
             try {
